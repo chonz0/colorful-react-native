@@ -12,10 +12,12 @@ import {
 let ws;
 
 const App = () => {
-  const [color, setColor] = useState('#f00');
+  const [color, setColor] = useState('#fff');
 
   useEffect(() => {
-    ws = new WebSocket('ws://localhost:8999');
+    // ws = new WebSocket('ws://localhost:8999');
+    // ws = new WebSocket('ws://localhost:5000');
+    ws = new WebSocket('ws://colorful-server.herokuapp.com');
 
     ws.onopen = () => {
       // connection opened
