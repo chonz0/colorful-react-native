@@ -38,7 +38,7 @@ const App = () => {
 
     ws.onclose = (e) => {
       // connection closed
-      console.log(e.code, e.reason);
+      console.log('onclose', e.code, e.reason);
     };
   }, []);
 
