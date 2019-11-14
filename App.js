@@ -9,10 +9,12 @@ import {
   StatusBar,
 } from 'react-native';
 
+import codePush from 'react-native-code-push';
+
 let ws;
 
 const App = () => {
-  const [color, setColor] = useState('#fff');
+  const [color, setColor] = useState(null);
 
   useEffect(() => {
     // ws = new WebSocket('ws://localhost:8999');
@@ -52,14 +54,15 @@ const App = () => {
   return (
     <>
       <SafeAreaView style={{backgroundColor: color, flex: 1}}>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic">
-          <View>
-            <TouchableOpacity style={{borderWidth: 2, alignItems: 'center', justifyContent: 'center', flex: 1, height: 300}} onPress={getColor}>
-              <Text style={{fontSize: 70}}>🎨</Text>
-            </TouchableOpacity>
+          <View style={{flex: 1}}>
+            {color === null && <Text style={{alignItems: 'center', alignContent: 'space-between', alignItems: 'center', justifyContent: 'center', flex: 1}}>Loading...</Text>}
+            {
+              color !== null &&
+              <TouchableOpacity style={{alignItems: 'center', alignContent: 'space-between', alignItems: 'center', justifyContent: 'center', flex: 1}} onPress={getColor}>
+                <Text style={{fontSize: 40}}>🎨</Text>
+              </TouchableOpacity>
+            }
           </View>
-        </ScrollView>
       </SafeAreaView>
     </>
   );
@@ -71,4 +74,4 @@ const App = () => {
 //   },
 // });
 
-export default App;
+export default codePush(App);
