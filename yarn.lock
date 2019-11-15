@@ -5640,6 +5640,11 @@ react-native-code-push@^5.7.0:
     semver "^5.6.0"
     xcode "1.0.0"
 
+react-native-reconnecting-websocket@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-reconnecting-websocket/-/react-native-reconnecting-websocket-1.0.1.tgz#08a17b421961a6fe4b51140adf1be361285052ff"
+  integrity sha512-j65BUM1B/Emj2Y3W+fYI1Udz6RyJ3T3ij7Lu/IEDXLEhlYpemyc9l6EPsOVsKt4WfUVai6wlOzjKSq49d4ArBg==
+
 react-native@0.61.4:
   version "0.61.4"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.61.4.tgz#9ec6e8a2aa8eac57143dcfa39115c7d9a139bc2c"

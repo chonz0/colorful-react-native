@@ -10,16 +10,19 @@ import {
 } from 'react-native';
 
 import codePush from 'react-native-code-push';
+import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 
 let ws;
 
 const App = () => {
   const [color, setColor] = useState(null);
+  const [lastMessage, setLastMessage] = useState('');
 
   useEffect(() => {
     // ws = new WebSocket('ws://localhost:8999');
     // ws = new WebSocket('ws://localhost:5000');
-    ws = new WebSocket('ws://colorful-server.herokuapp.com');
+    // ws = new WebSocket('ws://colorful-server.herokuapp.com');
+    ws = new ReconnectingWebSocket('ws://colorful-server.herokuapp.com');
 
     ws.onopen = () => {
       // connection opened
@@ -31,6 +34,7 @@ const App = () => {
       // a message was received
       console.log('onmessage', e, e.data);
       if (e && e.data) {
+        setLastMessage(e.data);
         setColor(e.data);
       }
     };
@@ -62,6 +66,7 @@ const App = () => {
                 <Text style={{fontSize: 40}}>🎨</Text>
               </TouchableOpacity>
             }
+            <Text>{lastMessage}</Text>
           </View>
       </SafeAreaView>
     </>

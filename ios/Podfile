@@ -35,7 +35,6 @@ target 'ColorfulApp' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   # CodePush plugin dependency
-  pod 'CodePush', :path => '../node_modules/react-native-code-push'
 
   target 'ColorfulAppTests' do
     inherit! :search_paths
