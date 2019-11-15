@@ -81,6 +81,7 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -131,8 +132,8 @@ android {
         applicationId "com.colorfulapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 100001
+        versionName "1.0.0"
     }
     splits {
         abi {
@@ -181,6 +182,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    compile project(':react-native-code-push')
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

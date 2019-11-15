@@ -66,7 +66,7 @@ const App = () => {
                 <Text style={{fontSize: 40}}>🎨</Text>
               </TouchableOpacity>
             }
-            <Text>{lastMessage}</Text>
+            <Text style={{alignSelf: 'flex-end', color: '#00f'}}>{lastMessage}</Text>
           </View>
       </SafeAreaView>
     </>
@@ -79,4 +79,8 @@ const App = () => {
 //   },
 // });
 
-export default codePush(App);
+const codePushOptions = {
+  checkFrequency: codePush.CheckFrequency.ON_APP_START
+};
+
+export default codePush(codePushOptions)(App);

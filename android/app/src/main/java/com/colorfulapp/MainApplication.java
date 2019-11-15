@@ -1,5 +1,6 @@
 package com.colorfulapp;
 
+import com.microsoft.codepush.react.CodePush;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -17,6 +18,11 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         public boolean getUseDeveloperSupport() {
           return BuildConfig.DEBUG;
+        }
+
+        @Override
+        protected String getJSBundleFile() {
+          return CodePush.getJSBundleFile();
         }
 
         @Override

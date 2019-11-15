@@ -25,15 +25,15 @@ So, when any user taps the screen, a new random color is generated (in the back-
 ## Release a new version through CodePush
 
 ```bash
-react-native bundle --platform ios \
+eact-native bundle --platform android \
 --entry-file index.js \
---bundle-output ./CodePush/main.jsbundle \
+--bundle-output ./CodePush/index.android.bundle \
 --assets-dest ./CodePush \
 --dev false
 ```
 
 ```bash
-code-push release Colorful-iOS ./CodePush 0.0.1
+code-push release Colorful-Android ./CodePush --mandatory "*"
 ```
 
 ## Bundle debug APK
@@ -41,12 +41,7 @@ code-push release Colorful-iOS ./CodePush 0.0.1
 react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
 ```
 
-# execute command to run android to create debug apk
-```bash
-react-native run-android
-```
-
 # build debug apk
 ```bash
-cd android && ./gradlew assembleDebug
+cd android && ./gradlew assembleDebug && cd ..
 ```
