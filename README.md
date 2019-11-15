@@ -22,7 +22,7 @@ So, when any user taps the screen, a new random color is generated (in the back-
 
 # Useful CLI commands
 
-## Release a new version
+## Release a new version through CodePush
 
 ```bash
 react-native bundle --platform ios \
@@ -34,4 +34,19 @@ react-native bundle --platform ios \
 
 ```bash
 code-push release Colorful-iOS ./CodePush 0.0.1
+```
+
+## Bundle debug APK
+```bash
+react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+```
+
+# execute command to run android to create debug apk
+```bash
+react-native run-android
+```
+
+# build debug apk
+```bash
+cd android && ./gradlew assembleDebug
 ```
