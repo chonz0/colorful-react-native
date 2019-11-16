@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { loadColorSuccess } from './actions/color';
+import store from './store';
+import { useSelector, useDispatch } from 'react-redux';
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,9 +20,11 @@ import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 let ws;
 
 const App = () => {
-  const [color, setColor] = useState('#e0e0e0');
   const [connectionCount, setConnectionCount] = useState(0);
   const [lastMessage, setLastMessage] = useState('');
+
+  const dispatch = useDispatch();
+  const color = useSelector(store => store.color.data);
 
   useEffect(() => {
     // ws = new ReconnectingWebSocket('ws://localhost:8999');
@@ -38,7 +45,8 @@ const App = () => {
 
         switch(type) {
           case 'color':
-            setColor(payload);
+            dispatch(loadColorSuccess(payload));
+            // setColor(payload);
             break;
 
           case 'status':
@@ -77,36 +85,37 @@ const App = () => {
       justifyContent: 'center',
       flex: 1
     },
-    // body: {
-    //   backgroundColor: color,
-    // },
+    bubbleTop: {
+        paddingVertical: 5, paddingHorizontal: 10, marginHorizontal: 10, marginTop: 10, backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: 20,
+    },
+    bubbleBottom: {
+      flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 10, marginHorizontal: 10, marginBottom: 10, backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: 20, alignSelf: 'center'
+    }
   });
 
   return (
-    <>
       <SafeAreaView style={{backgroundColor: color, flex: 1}}>
-          <View style={{flex: 1}}>
-            <View style={{paddingVertical: 5, paddingHorizontal: 10, marginHorizontal: 10, marginTop: 10, backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: 20, }}>
-              <Text style={{alignSelf: 'center', color: 'rgba(0, 0, 0, 0.5)'}}>{lastMessage}</Text>
-            </View>
-            {lastMessage === '' && <Text style={styles.loading}>Loading...</Text>}
-            {
-              <TouchableOpacity style={styles.touchable} onPress={getColor}>
-                <Text style={{fontSize: 40}}>🎨</Text>
-              </TouchableOpacity>
-            }
-
-            <View style={{flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 10, marginHorizontal: 10, marginBottom: 10, backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: 20, alignSelf: 'center' }}>
-              <Text style={{color: 'rgba(0, 0, 0, 0.5)'}}>
-                📱{connectionCount} conectados
-              </Text>
-              <Text style={{color: color}}>
-                🖍{color}
-              </Text>
-            </View>
+        <View style={{flex: 1}}>
+          <View style={styles.bubbleTop}>
+            <Text style={{alignSelf: 'center', color: 'rgba(0, 0, 0, 0.5)'}}>{lastMessage}</Text>
           </View>
+          {lastMessage === '' && <Text style={styles.loading}>Loading...</Text>}
+          {
+            <TouchableOpacity style={styles.touchable} onPress={getColor}>
+              <Text style={{fontSize: 40}}>🎨</Text>
+            </TouchableOpacity>
+          }
+
+          <View style={styles.bubbleBottom}>
+            <Text style={{color: 'rgba(0, 0, 0, 0.5)'}}>
+              🔌{connectionCount} conectados
+            </Text>
+            <Text style={{color: color}}>
+              🖍{color}
+            </Text>
+          </View>
+        </View>
       </SafeAreaView>
-    </>
   );
 };
 
@@ -114,4 +123,4 @@ const codePushOptions = {
   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME
 };
 
-export default codePush(codePushOptions)(App);
+export default codePush(codePushOptions)(() => <Provider store={store}><App /></Provider>);

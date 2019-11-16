@@ -11,21 +11,23 @@ So, when any user taps the screen, a new random color is generated (in the back-
 # Technology used
 
 - React Native
-- CodePush (over the air updates)
-- Node
-- Websockets
+- CodePush
+- Node + Express
+- WebSockets
 
 # Roadmap
 
-- [] Add Redux
-- [] ?
+- [ ] Add Redux
+- [ ] Implementar Socket.io
+- [ ] Implementar Fastify
+- [ ] ?
 
 # Useful CLI commands
 
 ## Release a new version through CodePush
 
 ```bash
-eact-native bundle --platform android \
+react-native bundle --platform android \
 --entry-file index.js \
 --bundle-output ./CodePush/index.android.bundle \
 --assets-dest ./CodePush \
