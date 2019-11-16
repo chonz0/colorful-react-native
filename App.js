@@ -15,14 +15,15 @@ import ReconnectingWebSocket from 'react-native-reconnecting-websocket';
 let ws;
 
 const App = () => {
-  const [color, setColor] = useState('');
+  const [color, setColor] = useState('#e0e0e0');
+  const [connectionCount, setConnectionCount] = useState(0);
   const [lastMessage, setLastMessage] = useState('');
 
   useEffect(() => {
-    // ws = new ReconnectingWebSocket('ws://localhost:8999');
+    ws = new ReconnectingWebSocket('ws://localhost:8999');
     // ws = new ReconnectingWebSocket('ws://localhost:5000');
     // ws = new WebSocket('ws://colorful-server.herokuapp.com');
-    ws = new ReconnectingWebSocket('ws://colorful-server.herokuapp.com');
+    // ws = new ReconnectingWebSocket('ws://colorful-server.herokuapp.com');
 
     ws.onopen = () => {
       console.log('onopen');
@@ -41,8 +42,14 @@ const App = () => {
             break;
 
           case 'status':
-          default:
             setLastMessage(payload);
+            break;
+
+          case 'connection_count':
+            setConnectionCount(payload);
+            break;
+
+          default:
             break;
         }
       }
@@ -79,14 +86,24 @@ const App = () => {
     <>
       <SafeAreaView style={{backgroundColor: color, flex: 1}}>
           <View style={{flex: 1}}>
-            <Text style={{alignSelf: 'center', color: 'rgba(0, 0, 0, 0.5)'}}>{lastMessage}</Text>
+            <View style={{paddingVertical: 5, paddingHorizontal: 10, marginHorizontal: 10, marginTop: 10, backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: 20, }}>
+              <Text style={{alignSelf: 'center', color: 'rgba(0, 0, 0, 0.5)'}}>{lastMessage}</Text>
+            </View>
             {lastMessage === '' && <Text style={styles.loading}>Loading...</Text>}
             {
               <TouchableOpacity style={styles.touchable} onPress={getColor}>
                 <Text style={{fontSize: 40}}>🎨</Text>
               </TouchableOpacity>
             }
-            <Text style={{alignSelf: 'center', color: 'rgba(0, 0, 0, 0.5)'}}>{color}</Text>
+
+            <View style={{flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 10, marginHorizontal: 10, marginBottom: 10, backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: 20, alignSelf: 'center' }}>
+              <Text style={{color: 'rgba(0, 0, 0, 0.5)'}}>
+                📱{connectionCount} conectados
+              </Text>
+              <Text style={{color: color}}>
+                🖍{color}
+              </Text>
+            </View>
           </View>
       </SafeAreaView>
     </>
