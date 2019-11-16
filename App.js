@@ -20,10 +20,10 @@ const App = () => {
   const [lastMessage, setLastMessage] = useState('');
 
   useEffect(() => {
-    ws = new ReconnectingWebSocket('ws://localhost:8999');
+    // ws = new ReconnectingWebSocket('ws://localhost:8999');
     // ws = new ReconnectingWebSocket('ws://localhost:5000');
     // ws = new WebSocket('ws://colorful-server.herokuapp.com');
-    // ws = new ReconnectingWebSocket('ws://colorful-server.herokuapp.com');
+    ws = new ReconnectingWebSocket('ws://colorful-server.herokuapp.com');
 
     ws.onopen = () => {
       console.log('onopen');
