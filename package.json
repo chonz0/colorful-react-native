@@ -13,7 +13,7 @@
 	"dependencies": {
 		"immer": "^5.0.0",
 		"react": "16.9.0",
-		"react-native": "0.61.4",
+		"react-native": "0.62.3",
 		"react-native-code-push": "^5.7.0",
 		"react-native-reconnecting-websocket": "^1.0.1",
 		"react-redux": "^7.1.3",
